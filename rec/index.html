@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      margin: 20px;
+      background: url('wb2.png') center/cover fixed no-repeat;
+      background-color: #f8f9fa;
+      color: #343a40;
+      position: relative;
+      /* Add position relative to the body */
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .running-text-container {
+      position: absolute;
+      top: 28px;
+      /* Adjust the top position as needed */
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .running-text {
+      white-space: nowrap;
+      animation: runText 14s linear infinite;
+      opacity: 50%;
+
+      /* Adjust animation duration as needed */
+    }
+
+    @keyframes runText {
+      from {
+        transform: translateX(100%);
+      }
+
+      to {
+        transform: translateX(-100%);
+      }
+    }
+
+    textarea {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      width: 80%;
+      box-sizing: border-box;
+      margin-bottom: 15px;
+      resize: vertical;
+      margin: 0 auto;
+      /* Center the textarea */
+      margin-left: 10px;
+      /* Add left margin */
+      margin-right: 10px;
+      /* Add right margin */
+    }
+
+    button {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 40%;
+      max-width: 200px;
+      margin: 0 5px;
+    }
+
+    button.primary {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    button.secondary {
+      background-color: #6c757d;
+      color: #fff;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+
+      textarea,
+      button {
+        width: 100%;
+      }
+
+      button {
+        margin-top: 10px;
+      }
+    }
+  </style>
+  <title>YEA!#</title>
+</head>
+
+<body>
+
+  <h2>YEA!#</h2>
+
+  <div class="running-text-container">
+    <div class="running-text">
+      তুমি আমার আলো
+      নিভিয়ে দাও অন্ধকার</div>
+  </div>
+
+  <label for="inputText"></label>
+  <textarea id="inputText" placeholder="Enter text" rows="3"></textarea>
+
+  <br>
+
+  <button class="primary" onclick="simulateTyping(encodeText)">Encode</button>
+  <button class="secondary" onclick="simulateTyping(decodeText)">Decode</button>
+
+  <script>
+    function simulateTyping(callback) {
+      const outputDiv = document.createElement('div');
+      document.body.appendChild(outputDiv);
+      outputDiv.style.marginLeft = '10px'; /* Add left margin */
+      outputDiv.style.marginRight = '10px'; /* Add right margin */
+
+      const text = callback();
+      let index = 0;
+
+      function type() {
+        outputDiv.innerHTML += text.charAt(index);
+        index++;
+        if (index < text.length) {
+          setTimeout(type, 50);
+        }
+      }
+
+      type();
+    }
+
+    function encodeText() {
+      const inputText = document.getElementById('inputText').value.toLowerCase();
+      let outputText = '';
+
+      for (let i = 0; i < inputText.length; i++) {
+        const charCode = inputText.charCodeAt(i);
+
+        if (charCode >= 97 && charCode <= 122) {
+          const encodedCharCode = 219 - charCode;
+          outputText += String.fromCharCode(encodedCharCode);
+        } else {
+          outputText += inputText[i];
+        }
+      }
+
+      return outputText;
+    }
+
+    function decodeText() {
+      const inputText = document.getElementById('inputText').value.toLowerCase();
+      let outputText = '';
+
+      for (let i = 0; i < inputText.length; i++) {
+        const charCode = inputText.charCodeAt(i);
+
+        if (charCode >= 97 && charCode <= 122) {
+          const decodedCharCode = 219 - charCode;
+          outputText += String.fromCharCode(decodedCharCode);
+        } else {
+          outputText += inputText[i];
+        }
+      }
+
+      return outputText;
+    }
+  </script>
+
+</body>
+
+</html>
